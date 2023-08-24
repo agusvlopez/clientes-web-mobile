@@ -6,11 +6,14 @@
     <title>Intro a Firestore</title>
 </head>
 <body>
+    <h1>Intro a Firestore</h1>
+    <p>Leyendo los mensajes del chat</p>
 
-    
+    <div id="salida"></div>
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
       
@@ -26,6 +29,61 @@
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+
+        //Obtener la Instancia de Firestore
+        const db = getFirestore(app);
+
+        /*
+            Leyendo datos de Firestore: 
+            Si queremos traer para ver el contenido de cualquier elemento de Firestore(documento o coleccion), primero tenemos que obtener una "referencia" a dicho elemento. Para leer toods los documentos de la coleccion "chats" en este caso, creamos la referencia a la coleccion usando la funcion "collection" del SDK(como si fuese una API) del Firestore Recibe dos parametros: 
+            1. la referencia de la bbdd
+            2. un string con el path de la collection en cuestion...
+        */
+       const refChat = collection(db, 'chats');
+
+       /*
+        Una vez que tenemos la referencia(const refChat), lo siguiente es leer con ayuda de una funcion, como getDocs() : esta funcion recibe como argumento una collection o un query y retorna una promesa que se resuelve con un "snapshot" de todos los documentos obtenidos.
+       */
+
+        //promise: valor que en algun momento en un futuro va a estar disponible: puede ser un valor vacio, acertado o un error y se utiliza sobretodo en programacion asincronica(defino algo y no se cuando se va a completar). Una promesa es un objeto que le puedo poner el .then
+
+        /*
+        Para manejar los datos tengo que usar la api del snapshot
+
+        Los snapshots(o fotografias instantaneas) son objetos que tienen la info de la coleccion o query que hayamos pedido, tal cual estaban en el momento de completarse la lectura.
+
+        Para obtener los resultados de los snapshots hay dos opciones:
+        1. usar metodo forEach()
+        2. Obtener el array de objetos usando la propiedad "docs"
+        */
+
+        const salida = document.getElementById('salida');
+        getDocs(refChat)
+            .then (snapshot => {
+                // console.log("Snapshot: ", snapshot);
+                salida.innerHTML = "";   
+                
+                //version usando forEach()...
+                // snapshot.forEach(doc => {
+                //     // console.log("Documento: ", doc);
+                //     //para pedir los datos de un documento usamos data() y para su id usamos .id
+
+                //     // console.log("El documento ", doc.id, " tiene los datos ", doc.data());
+                    
+                //     salida.innerHTML += `<div>
+                //         <div><p>Usuario: ${doc.data().user}</p></div>
+                //         <div><p>Dijo: ${doc.data().message}</p></div>
+                //         <div>`
+                // })
+
+                //version usando docs, mas estilo "funcional"
+                salida.innerHTML = snapshot.docs.map(doc => `
+                        <div>
+                            <div><p>Usuario: ${doc.data().user}</p></div>
+                            <div><p>Dijo: ${doc.data().message}</p></div>
+                        <div>`).join('');
+            })
+            
       </script>
 </body>
 </html>
