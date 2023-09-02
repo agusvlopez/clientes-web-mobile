@@ -35,6 +35,7 @@ export default {
 </script>
 
 <template>
+    <div>
     <h1 class="text-xl font-bold">Intro a Firestore</h1>
 
     <p>Leyendo los mensajes del chat, ahora en tiempo real</p>
@@ -62,9 +63,10 @@ export default {
     </form>
 
     <div>
-        <div v-for="message in messages">
+        <div v-for="message in messages" :key="message.id">
             <div><b>Usuario:</b> {{ message.user }}</div>
             <div><b>Mensaje:</b> {{ message.message }}</div>
         </div>
     </div>
+</div>
 </template>
