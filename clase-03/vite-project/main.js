@@ -1,5 +1,6 @@
-// Creamos la aplicación de Vue.
 import './src/main.css';
+
+// Creamos la aplicación de Vue.
 import {createApp} from "vue";
 import App from "./src/App.vue";
 

@@ -36,7 +36,7 @@ export default {
 
 <template>
     <div>
-    <h1 class="text-xl font-bold">Intro a Firestore</h1>
+    <h1>Intro a Firestore</h1>
 
     <p>Leyendo los mensajes del chat, ahora en tiempo real</p>
 
