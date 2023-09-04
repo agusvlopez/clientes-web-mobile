@@ -1,25 +1,20 @@
-// vamos a definir los servicios de firebase que vamos a utilizar
-// consumidos por otros servicios
-
+// En este archivo vamos a definir los servicios de Firebase que vamos a utilizar, y exportarlos para ser
+// consumidos por otros servicios.
 import { initializeApp } from "firebase/app";
-import { getFirestore} from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-     
+import { getFirestore } from "firebase/firestore"
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAtWUxxDxATgkN0nOqoYmKSDxWS3mmEhY8",
-    authDomain: "clientes-web-mobile-d7c96.firebaseapp.com",
-    projectId: "clientes-web-mobile-d7c96",
-    storageBucket: "clientes-web-mobile-d7c96.appspot.com",
-    messagingSenderId: "985915244823",
-    appId: "1:985915244823:web:468a238ad028d03751b752"
+    apiKey: "AIzaSyD0Bvj6apWImFckIZxucCIujzqt1_LNvfc",
+    authDomain: "cwm-2023-2-noche-v.firebaseapp.com",
+    projectId: "cwm-2023-2-noche-v",
+    storageBucket: "cwm-2023-2-noche-v.appspot.com",
+    messagingSenderId: "1062627041819",
+    appId: "1:1062627041819:web:04c68f22156df9f609cebe"
 };
-     
-// los exporto para que lo puedan utilizar otros archivos..
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
-//Obtener la Instancia de Firestore
+// Obtener la instancia de Firestore.
 export const db = getFirestore(app);

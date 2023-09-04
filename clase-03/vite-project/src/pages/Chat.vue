@@ -1,7 +1,7 @@
 <script>
 import {chatSubscribeToMessages, chatSaveMessage} from "../services/chat.js";
 
-
+// TODO: Ordenar los mensajes del chat :)
 
 export default {
     name: "Chat",
