@@ -10,7 +10,7 @@ export default {
 <template>
     <header class="flex gap-8 items-center p-4 bg-slate-100">
         <div>
-            <p class="text-2xl">DV Chat</p>
+            <router-link to="/"><p class="text-2xl">DV Chat</p></router-link>
         </div>
         <nav>
             <ul class="flex gap-4">
