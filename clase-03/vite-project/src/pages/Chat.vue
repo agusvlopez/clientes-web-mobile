@@ -74,7 +74,7 @@ export default {
                 ></textarea>
             </div>
             <button 
-                class="w-full p-1.5 rounded bg-blue-700 text-white"
+                class="w-full p-1.5 rounded bg-orange-700 text-white"
                 type="submit"
             >Enviar</button>
         </form>
