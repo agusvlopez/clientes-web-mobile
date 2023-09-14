@@ -5,10 +5,12 @@ import { dateToString } from '../helpers/date.js';
 
 import BaseButton from "../components/BaseButton.vue";
 import BaseLabel from "../components/BaseLabel.vue";
+import BaseInput from "../components/BaseInput.vue";
+import BaseTextarea from "../components/BaseTextarea.vue";
 
 export default {
     name: "Chat",
-    components: { BaseButton, BaseLabel },
+    components: { BaseButton, BaseLabel, BaseInput, BaseTextarea },
     data() {
         return {
             messages: [],
@@ -68,20 +70,18 @@ export default {
         >
             <div class="mb-3">
                 <BaseLabel for="user">Usuario</BaseLabel>
-                <input
-                    class="w-full px-1.5 py-1 border border-gray-400 rounded"
+                <BaseInput
                     type="text"
                     id="user"
                     v-model="newMessage.user"
-                >
+                />
             </div>
             <div class="mb-3">
                 <BaseLabel for="message">Mensaje</BaseLabel>
-                <textarea
-                    class="w-full px-1.5 py-1 border border-gray-400 rounded"
+                <BaseTextarea
                     id="message"
                     v-model="newMessage.message"
-                ></textarea>
+                ></BaseTextarea>
             </div>
 
             <BaseButton />
