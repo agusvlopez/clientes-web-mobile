@@ -1,9 +1,10 @@
 <script>
-import BaseButton from '../components/baseButton.vue';
+import BaseLabel from '../components/BaseLabel.vue';
+import BaseButton from '../components/BaseButton.vue';
 
 export default {
     name: 'Register',
-    components: { BaseButton }
+    components: { BaseButton, BaseLabel }
 }
 </script>
 
@@ -12,7 +13,7 @@ export default {
 
     <form action="#">
         <div class="mb-3">
-            <label for="email" class="block mb-1 font-bold">Email</label>
+            <BaseLabel for="email">Email</BaseLabel>
             <input
                 class="w-full px-1.5 py-1 border border-gray-400 rounded"
                 type="email" 
@@ -20,7 +21,7 @@ export default {
             >
         </div>
         <div class="mb-3">
-            <label for="password" class="block mb-1 font-bold">Contraseña</label>
+            <BaseLabel for="password">Contraseña</BaseLabel>
             <input
                 class="w-full px-1.5 py-1 border border-gray-400 rounded"
                 type="password" 
