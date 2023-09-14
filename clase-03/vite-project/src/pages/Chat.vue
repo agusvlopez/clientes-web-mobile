@@ -1,7 +1,8 @@
 <script>
 import {chatSubscribeToMessages, chatSaveMessage} from "../services/chat.js";
 
-// TODO: Ordenar los mensajes del chat :)
+import { dateToString } from '../helpers/date.js';
+
 
 export default {
     name: "Chat",
@@ -25,7 +26,11 @@ export default {
                 .then(() => {
                     this.newMessage.message = '';
                 });
-        }
+        },
+
+        formatDate(date){
+            return dateToString(date);
+        },
     },
 
     mounted() {
@@ -49,6 +54,7 @@ export default {
             >
                 <div><b>Usuario:</b> {{ message.user }}</div>
                 <div><b>Mensaje:</b> {{ message.message }}</div>
+                <div class="text-right">{{ formatDate(message.created_at) }}</div>
             </div>
         </div>
 
