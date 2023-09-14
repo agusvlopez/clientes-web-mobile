@@ -3,9 +3,11 @@ import {chatSubscribeToMessages, chatSaveMessage} from "../services/chat.js";
 
 import { dateToString } from '../helpers/date.js';
 
+import BaseButton from "../components/BaseButton.vue";
 
 export default {
     name: "Chat",
+    components: { BaseButton },
     data() {
         return {
             messages: [],
@@ -80,10 +82,9 @@ export default {
                     v-model="newMessage.message"
                 ></textarea>
             </div>
-            <button 
-                class="w-full p-1.5 rounded bg-orange-700 text-white"
-                type="submit"
-            >Enviar</button>
+
+            <BaseButton />
+            
         </form>
     </div>
 </template>

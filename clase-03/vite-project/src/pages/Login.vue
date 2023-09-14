@@ -1,6 +1,9 @@
 <script>
+import BaseButton from '../components/baseButton.vue';
+
 export default {
     name: 'Login',
+    components: { BaseButton }
 }
 </script>
 
@@ -24,9 +27,6 @@ export default {
                 id="password"
             >
         </div>
-        <button
-            class="w-full p-1.5 rounded bg-orange-700 text-white"
-            type="submit"
-        >Ingresar</button>
+        <BaseButton>Ingresar</BaseButton>
     </form>
 </template>
