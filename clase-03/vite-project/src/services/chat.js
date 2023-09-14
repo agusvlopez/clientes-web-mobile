@@ -57,6 +57,7 @@ export function chatSubscribeToMessages(callback) {
         // Transformamos el snapshot a un array de objetos que tengan solo los datos de cada mensaje.
         const data = snapshot.docs.map(doc => {
             return {
+                id: doc.id, //su identificador
                 user: doc.data().user,
                 message: doc.data().message,
                 created_at: doc.data().created_at.toDate(),

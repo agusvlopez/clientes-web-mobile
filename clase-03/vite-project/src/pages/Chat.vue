@@ -50,6 +50,7 @@ export default {
         <div >
             <div 
                 v-for="message in messages"
+                :key="message.id"
                 class="mb-2"
             >
                 <div><b>Usuario:</b> {{ message.user }}</div>
