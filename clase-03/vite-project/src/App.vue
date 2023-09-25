@@ -1,9 +1,23 @@
 <script>
 import Chat from './pages/Chat.vue';
+import { subscribeToAuth } from './services/auth.js';
 
 export default {
     name: "App",
-    components: { Chat }
+    components: { Chat },
+    data() {
+        return {
+            user: {
+                id: null,
+                email: null,
+            }
+        }
+    },
+    mounted(){
+        subscribeToAuth(user => {
+            this.user = {...user};
+        })
+    }
 };
 </script>
 
@@ -39,7 +53,10 @@ export default {
     -->
     <div class="container h-full m-auto p-4">
         <!-- <Chat /> -->
-        <router-view></router-view>
+        <router-view
+        :user="user"
+        @login="handleLogin"
+        ></router-view>
     </div>
 
     <footer class="flex justify-center items-center h-[100px] bg-slate-800 text-white">
