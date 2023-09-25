@@ -15,7 +15,7 @@
 
 
 */
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from './firebase.js';
 
 let userData = {
@@ -34,15 +34,20 @@ let observers = [];
 export function login({email, password}){
     return signInWithEmailAndPassword(auth, email, password)
     .then(userCredentials => {
-        console.log("[auth.js login]Sesion iniciada, las credenciales son: ", userCredentials);
+        // console.log("[auth.js login]Sesion iniciada, las credenciales son: ", userCredentials);
 
-        userData = {
+        // userData = {
+        //     id: userCredentials.user.uid,
+        //     email: userCredentials.user.email,
+        // };
+
+        // //Notificamos a todos los observadores.
+        // notifyAll();
+        
+        setUserData({
             id: userCredentials.user.uid,
             email: userCredentials.user.email,
-        };
-
-        //Notificamos a todos los observadores.
-        notifyAll();
+        });
         return {...userData}
     })
     .catch(error => {
@@ -52,6 +57,24 @@ export function login({email, password}){
         }
     })
 }
+/**
+ * 
+ * @returns {Promise}
+ */
+export function logout()
+{
+    const promise = signOut(auth);
+    clearUserData();
+    // userData = {
+    //     id: null,
+    //     email: null,
+    // };
+    // notifyAll();
+
+    return promise;
+}
+
+
 /**
  * Agrega un observer(callback) para ser notificado de los cambios en el estado de autenticación.
  * El observer debe ser una función que reciba como argumento un objeto y no retorne nada o no importa que retorne.
@@ -82,4 +105,25 @@ function notify(observer)
 function notifyAll() 
 {
     observers.forEach(observer => notify(observer));
+}
+
+/**
+ * 
+ * @param {{id: null|string, email: null|string}} newData 
+ */
+function setUserData(newData)
+{
+    userData = {
+        ...userData,
+        ...newData,
+    }
+    notifyAll()
+}
+
+function clearUserData()
+{
+    setUserData({
+        id: null,
+        email: null,
+    });
 }

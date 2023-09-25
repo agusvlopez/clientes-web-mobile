@@ -1,6 +1,6 @@
 <script>
 import Chat from './pages/Chat.vue';
-import { subscribeToAuth } from './services/auth.js';
+import { subscribeToAuth, logout } from './services/auth.js';
 
 export default {
     name: "App",
@@ -11,6 +11,11 @@ export default {
                 id: null,
                 email: null,
             }
+        }
+    },
+    methods: {
+        handleLogout() {
+            logout();
         }
     },
     mounted(){
@@ -37,12 +42,27 @@ export default {
                 <li>
                     <router-link to="/chat">Chat</router-link>
                 </li>
+            <template v-if="user.id === null">
                 <li>
                     <router-link to="/registro">Registro</router-link>
                 </li>
                 <li>
                     <router-link to="/iniciar-sesion">Iniciar Sesión</router-link>
                 </li>
+            </template>
+
+            <template v-else>
+                <li>
+                    <router-link to="/registro">Mi perfil</router-link>
+                </li>
+                <li>
+                    <form action=""
+                    @submit.prevent="handleLogout">
+                        <button type="submit">
+                            <b>{{user.email}}</b> (Cerrar sesión)</button>
+                    </form>
+                </li>
+            </template>
             </ul>
         </nav>
     </header>
@@ -53,10 +73,7 @@ export default {
     -->
     <div class="container h-full m-auto p-4">
         <!-- <Chat /> -->
-        <router-view
-        :user="user"
-        @login="handleLogin"
-        ></router-view>
+        <router-view></router-view>
     </div>
 
     <footer class="flex justify-center items-center h-[100px] bg-slate-800 text-white">
