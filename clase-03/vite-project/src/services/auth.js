@@ -80,13 +80,20 @@ export function logout()
  * El observer debe ser una función que reciba como argumento un objeto y no retorne nada o no importa que retorne.
  * 
  * @param {(id: null|string, email: null|string) => {void}} callback 
+ * @returns {() => void} Función para cancelar la suscripción.
  */
 export function subscribeToAuth(observer){
     //Agregamos el observer a la lista.
     observers.push(observer);
 
+    console.log("Observer agregado, el total de observers es de: ", observers);
+
     //Ejecutamos el observer inmediatamente con la data actual.
     notify(observer);
+
+    return () => {
+        observers = observers.filter(obs => obs !== observer);
+    }
 }
 
 /**

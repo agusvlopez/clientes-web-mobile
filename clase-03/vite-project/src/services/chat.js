@@ -53,7 +53,7 @@ export function chatSubscribeToMessages(callback) {
     const q = query(refChat, orderBy("created_at"));
 
 
-    onSnapshot(q, snapshot => {
+   return onSnapshot(q, snapshot => {
         // Transformamos el snapshot a un array de objetos que tengan solo los datos de cada mensaje.
         const data = snapshot.docs.map(doc => {
             return {
