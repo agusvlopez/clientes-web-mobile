@@ -22,7 +22,11 @@ export function chatSaveMessage(data) {
         created_at:  serverTimestamp(),
     });
 }
-
+/**
+ * 
+ * @param {() => {}} callback 
+ * @returns {import("firebase/auth").Unsubscribe}
+ */
 export function chatSubscribeToMessages(callback) {
     /*
 

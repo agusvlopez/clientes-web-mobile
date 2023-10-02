@@ -15,7 +15,7 @@
 
 
 */
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from './firebase.js';
 
 let userData = {
@@ -25,6 +25,23 @@ let userData = {
 
 let observers = [];
 
+//Si el usuario figuraba como autenticado, lo marcamos como tal inmediatamente.
+if(localStorage.getItem('user')){
+    userData = JSON.parse(localStorage.getItem('user'));
+};
+
+onAuthStateChanged(auth, user => {
+    if(user){
+        setUserData({
+            id: user.uid,
+            email: user.email,
+        });
+        localStorage.setItem('user', JSON.stringify(userData))
+    }else {
+        clearUserData();
+        localStorage.removeItem('user');
+    }
+})
 /**
  * Inicia sesión
  * 
@@ -44,10 +61,10 @@ export function login({email, password}){
         // //Notificamos a todos los observadores.
         // notifyAll();
         
-        setUserData({
-            id: userCredentials.user.uid,
-            email: userCredentials.user.email,
-        });
+        // setUserData({
+        //     id: userCredentials.user.uid,
+        //     email: userCredentials.user.email,
+        // });
         return {...userData}
     })
     .catch(error => {
@@ -63,15 +80,15 @@ export function login({email, password}){
  */
 export function logout()
 {
-    const promise = signOut(auth);
-    clearUserData();
+    // const promise = signOut(auth);
+    // clearUserData();
     // userData = {
     //     id: null,
     //     email: null,
     // };
     // notifyAll();
 
-    return promise;
+    return signOut(auth);
 }
 
 
@@ -92,7 +109,9 @@ export function subscribeToAuth(observer){
     notify(observer);
 
     return () => {
+
         observers = observers.filter(obs => obs !== observer);
+        console.log("Observer removido, el total de observers es de: ", observers);
     }
 }
 
